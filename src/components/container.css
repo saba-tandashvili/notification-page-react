@@ -5,7 +5,7 @@ body{
     font-family: 'Plus Jakarta Sans';
     margin: 0;
     padding: 80px;
-    height: 97vh;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: cente;

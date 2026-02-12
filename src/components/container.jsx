@@ -87,21 +87,32 @@ const notifications = [
 
 export function Container() {
     const [mark, setMark] = useState(false)
+    const [text, setText] = useState("3");
+    const [clickedNotifications, setClickedNotifications] = useState({})
+
+    const handleNotificationClick = (id) => {
+        setClickedNotifications({
+            ...clickedNotifications,
+            [id]: !clickedNotifications[id]
+        })
+    }
+
     console.log(mark)
   return (
     <div className="container">
       <div className="head">
         <h1>
-          Notifications<span>3</span>
+          Notifications<span>{text}</span>
         </h1>
         <p className="read" onClick={() => {
-            setMark(true)
+            setMark(true),
+            setText("0")
         }}>Mark all as read</p>
       </div>
 
-      <div className="notifs" style={{ display: mark ? "none" : "" }}>
+      <div className="notifs" >
         {notifications.map((item) => (
-          <div className={item.id === 4 ? "rizky notification" : "notification"} key={item.id} style={{backgroundColor: item.colorz}}>
+          <div className={item.id === 4 ? "rizky notification" : "notification"} key={item.id} onClick={() => handleNotificationClick(item.id)} style={{backgroundColor: clickedNotifications[item.id] ? "" : (mark ? "" : item.colorz), cursor: "pointer"}}>
             <div className="post" >
               <img src={item.image} alt="" className={item.id === 4 ? "pfp4 pfp" : "pfp"} />
               <div className="actual">
@@ -110,7 +121,7 @@ export function Container() {
                   <p className="reason">{item.reason}</p>
                   <img src={item.imagee} alt="" className={item.id === 5 ? "image" : ""} />
                   <span className="info">{item.info}</span> <br />
-                  <div style={{minHeight: item.heightwidth, minWidth: item.heightwidth, backgroundColor: item.backcolor, borderRadius: item.radius, margin: 0,}}></div>
+                  <div style={{minHeight: item.heightwidth, minWidth: item.heightwidth, backgroundColor: item.backcolor, borderRadius: item.radius, margin: 0, display: mark || clickedNotifications[item.id] ? "none" : "",}}></div>
                 </div>
                 <div className="line2">
                   <span className="info">{item.info2}</span>
